@@ -18,7 +18,8 @@ const routeSchema = Joi.object({
   href: Joi.string().required(),
   permissions: Joi.array().items(permissionsSchema),
   isExternal: Joi.bool(),
-  product: Joi.string()
+  product: Joi.string(),
+  notifier: Joi.string()
 })
 
 const navItemSchema = Joi.object({
@@ -37,6 +38,7 @@ const navItemSchema = Joi.object({
   filterable: Joi.bool(),
   isExternal: Joi.bool(),
   title: Joi.string().required(),
+  dynamicNav: Joi.string(),
   groupId: Joi.string(),
   href: Joi.string().when('expandable', {
     is: true,
@@ -44,7 +46,12 @@ const navItemSchema = Joi.object({
     break: true
   }).when('groupId', {
     not: Joi.exist(),
-    then: Joi.required(),
+    then: Joi.when(
+      'dynamicNav', {
+        not: Joi.exist(),
+        then: Joi.required()
+      }
+    ),
     otherwise: Joi.optional()
   }),
   expandable: Joi.bool().optional(),
@@ -56,7 +63,7 @@ const navItemSchema = Joi.object({
   icon: Joi.string().when('groupId', {
     not: Joi.exist(),
     then: Joi.forbidden(),
-    otherwise: Joi.optional().valid('wrench', 'trend-up', 'shield')
+    otherwise: Joi.optional().valid('wrench', 'trend-up', 'shield', 'code', 'cloud', 'database')
   }),
   navItems: Joi.alternatives().conditional('groupId', {
     is: Joi.exist(),
@@ -68,7 +75,9 @@ const navItemSchema = Joi.object({
     then: Joi.forbidden(),
     otherwise: Joi.optional()
   }),
-  product: Joi.string()
+  product: Joi.string(),
+  notifier: Joi.string(),
+  id: Joi.string().optional()
 })
 
 const subNavItem = navItemSchema.fork(['groupId', 'navItems', 'appId', 'icon'], schema => schema.forbidden())
@@ -79,4 +88,8 @@ const navigationSchema = Joi.object({
   navItems: Joi.array().items(navItemSchema).required()
 }).shared(subNavItem.id('subNavItem'));
 
-module.exports = navigationSchema;
+module.exports.navItemSchema = navItemSchema
+
+module.exports.subNavItem = subNavItem;
+
+module.exports.navigationSchema = navigationSchema;

@@ -2,9 +2,6 @@ access-requests:
   title: Access Requests
   description: Frontend for Red Hat employee to request access to customer account
   deployment_repo: https://github.com/RedHatInsights/access-requests-build
-  api:
-    versions:
-      -v1
   frontend:
     module:
       appName: access-requests
@@ -13,6 +10,18 @@ access-requests:
     title: Access Requests
     paths:
       - /internal/access-requests
+
+acs:
+  title: Advanced Cluster Security
+  api:
+    versions:
+      - v1
+  description: Frontend for Red Hat employees to manage ACS instances
+  deployment_repo: https://github.com/RedHatInsights/acs-ui-build
+  frontend:
+    paths:
+      - /application-services/acs
+  source_repo: https://github.com/RedHatInsights/acs-ui
 
 advisor:
   title: Advisor
@@ -120,7 +129,7 @@ approval:
   source_repo: https://github.com/RedHatInsights/approval-ui
 
 automation-analytics:
-  title: Analytics
+  title: Automation Analytics
   api:
     versions:
       - v1
@@ -128,9 +137,8 @@ automation-analytics:
   deployment_repo: https://github.com/RedHatInsights/tower-analytics-frontend-build.git
   productId: Ansible Automation Analytics
   frontend:
-    section: insights
     paths:
-      - /ansible/insights
+      - /ansible/automation-analytics
     sub_apps:
       - id: reports
         title: Reports
@@ -164,10 +172,10 @@ automation-hub:
         default: true
       - id: partners
         title: Partners
-      - id: my-namespaces
-        title: My namespaces
       - id: repositories
         title: Repo Management
+      - id: tasks
+        title: Task Management
       - id: token
         title: Connect to Hub
   source_repo: https://github.com/ansible/ansible-hub-ui
@@ -208,9 +216,20 @@ catalog:
 ccx:
   title: OpenShift Insights
   api:
-    versions:
-      - v1
-    apiName: insights-results-aggregator
+    subItems:
+      insights-results-aggregator:
+        title: Insights Results Aggregator
+        versions:
+          - v2
+          - v1
+      gathering:
+        title: Insights Operator Gathering Conditions Service
+        versions:
+          - v1
+      ocp-vulnerability:
+        title: Vulnerability
+        versions:
+          - v1
 
 chrome:
   channel: '#flip-mode-squad'
@@ -221,9 +240,6 @@ cloud-tutorials:
   title: Cloud Tutorials
   description: Cloud Tutorials for Open Data Hub
   deployment_repo: https://github.com/cloudmosaic/cloud-tutorials-frontend-build
-  api:
-    versions:
-      -v1
   frontend:
     module:
       appName: cloud-tutorials
@@ -238,9 +254,6 @@ commit-tracker:
   description: The Commit Tracker Tool
   disabled_on_prod: true
   deployment_repo: https://github.com/RedHatInsights/commit-tracker-frontend-build
-  api:
-    versions:
-      -v1
   frontend:
     title: Commit Tracker
     paths:
@@ -252,7 +265,6 @@ compliance:
   api:
     versions:
       - v1
-    isBeta: true
   deployment_repo: https://github.com/RedHatInsights/compliance-frontend-build
   frontend:
     section: security
@@ -273,6 +285,24 @@ config:
   title: Cloud Services Config
   deployment_repo: https://github.com/RedHatInsights/cloud-services-config
   source_repo: https://github.com/RedHatInsights/cloud-services-config
+
+connect:
+  title: Cloud Connect
+  deployment_repo: https://github.com/RedHatInsights/stratosphere-frontend-build
+  disabled_on_prod: true
+  frontend:
+    paths:
+      - /connect
+  mailing_list: it-partner-integration-team@redhat.com
+
+content-sources:
+  title: Repositories
+  api:
+    versions:
+      - v1
+  channel: '#content-services-dev'
+  source_repo: https://github.com/content-services/content-sources-frontend
+  deployment_repo: https://github.com/RedHatInsights/content-sources-frontend-build
 
 cost-management:
   title: Cost Management
@@ -310,20 +340,26 @@ cost-management:
         title: Overview
         default: true
         group: cost-management
+      - id: recommendations
+        title: Recommendations
+        group: cost-management
       - id: ocp
         title: OpenShift
         group: cost-management
       - id: aws
         title: Amazon Web Services
         group: cost-management
-      - id: azure
-        title: Microsoft Azure
-        group: cost-management
       - id: gcp
         title: Google Cloud Platform
         group: cost-management
       - id: ibm
         title: IBM Cloud
+        group: cost-management
+      - id: azure
+        title: Microsoft Azure
+        group: cost-management
+      - id: oci
+        title: Oracle Cloud Infrastructure
         group: cost-management
       - id: cost-models
         title: Cost models
@@ -359,6 +395,11 @@ docs:
         default: true
       - id: product
   top_level: true
+
+dbaas:
+  title: Database Access
+  deployment_repo: https://github.com/RedHatInsights/dbaas-ui-build
+  source_repo: https://github.com/RedHatInsights/dbaas-ui
 
 drift:
   title: Drift
@@ -410,7 +451,7 @@ edge:
       scope: edge
       module: ./RootApp
       group: fleet-management
-    title: RHEL for Edge
+    title: Fleet Management
     paths:
       - /edge
     sub_apps:
@@ -427,6 +468,23 @@ frontend-assets:
   deployment_repo: https://github.com/RedHatInsights/frontend-assets-build.git
   source_repo: https://github.com/RedHatInsights/frontend-assets
 
+hac-core:
+  title: HAC
+  deployment_repo: https://github.com/RedHatInsights/hac-core-frontend-build
+  source_repo: https://github.com/RedHatInsights/hac-core-frontend
+  frontend:
+    paths:
+      - /hac
+      - /hac/core
+
+hac-dev:
+  title: HAC Developer Experience
+  deployment_repo: https://github.com/openshift/hac-dev
+  source_repo: https://github.com/openshift/hac-dev
+  frontend:
+    paths:
+      - /hac/app-studio
+
 image-builder:
   title: Image Builder
   api:
@@ -434,16 +492,11 @@ image-builder:
       - v1
     isBeta: true
   deployment_repo: https://github.com/RedHatInsights/image-builder-frontend-build
-  permissions:
-    method: apiRequest
-    args:
-      - url: '/api/image-builder/v1/version'
-        matcher: isNotEmpty
   frontend:
     section: operations
     module:
       appName: image-builder
-      scope: image_builder
+      scope: imageBuilder
       module: ./RootApp
     title: Image Builder
     paths:
@@ -455,6 +508,8 @@ ingress:
   api:
     versions:
       - v1
+  description: Ingress is designed to receive payloads from clients and distribute them via a Kafka message queue to other platform services
+  source_repo: https://github.com/RedHatInsights/insights-ingress-go
 
 insights:
   title: Red Hat Enterprise Linux
@@ -529,6 +584,8 @@ malware:
   api:
     versions:
       - v1
+    alias:
+      - malware-detection
   channel: '#advisor'
   deployment_repo: https://github.com/RedHatInsights/malware-detection-frontend-build
   frontend:
@@ -543,6 +600,12 @@ malware:
       - id: systems
         title: Systems
   source_repo: https://github.com/RedHatInsights/malware-detection-frontend
+
+subscription-inventory:
+  title: Subscription Inventory
+  channel: '#subscription-inventory'
+  deployment_repo: https://github.com/RedHatInsights/subscription-inventory-ui-build
+  source_repo: https://github.com/RedHatInsights/subscription-inventory-ui
 
 manifests:
   title: Manifests
@@ -660,7 +723,7 @@ openshift:
 
   top_level: true
 
-ocp-advisor: 
+ocp-advisor:
   title: Advisor
   source_repo: https://github.com/RedHatInsights/ocp-advisor-frontend
   deployment_repo: https://github.com/RedHatInsights/ocp-advisor-frontend-build
@@ -671,10 +734,27 @@ ocp-advisor:
     sub_apps:
       - id: clusters
         title: Clusters
-        reload: clusters 
+        reload: clusters
       - id: recommendations
         title: Recommendations
         reload: recommendations
+
+ocp-vulnerability:
+  title: Vulnerability
+  channel: '#forum-ccx-vulnerability'
+  source_repo: https://github.com/RedHatInsights/vuln4shift-frontend
+  deployment_repo: https://github.com/RedHatInsights/vuln4shift-frontend-build
+  frontend:
+    module: ocp-vulnerability#./RootApp
+    paths:
+      - /openshift/insights/vulnerability
+    sub_apps:
+      - id: cves
+        title: CVEs
+        reload: cves
+      - id: clusters
+        title: Clusters
+        reload: clusters
 
 onboarding:
   title: Onboarding Test
@@ -692,6 +772,15 @@ onboarding:
       - /staging/test-onboarding-app
   source_repo: https://github.com/RedHatInsights/test-onboarding-app
 
+provisioning:
+  title: Launch
+  api:
+    versions:
+      - v1
+  channel: '#envision-team'
+  source_repo: https://github.com/RHEnVision/provisioning-frontend
+  deployment_repo: https://github.com/RedHatInsights/provisioning-frontend-build
+
 streams:
   title: "Streams for Apache Kafka"
   frontend:
@@ -699,18 +788,77 @@ streams:
       - id: kafkas
         title: "Kafka Instances"
         default: true
-      - id: service-accounts
-        title: "Service Accounts"
-      - id: resources
-        title: "Resources"
       - id: streams-docs
         title: Documentation
         navigate: https://access.redhat.com/documentation/en-us/red_hat_openshift_streams_for_apache_kafka/
 
+service-registry:
+  title: "Service Registry"
+  frontend:
+    sub_apps:
+      - id: instances
+        title: "Service Registry Instances"
+      - id: streams-docs
+        title: Documentation
+        navigate: https://access.redhat.com/documentation/en-us/red_hat_openshift_service_registry
+
+rhosak:
+  title: Streams for Apache Kafka - Application Services
+  deployment_repo: https://github.com/RedHatInsights/rhosak-ui-build
+  frontend:
+    title: Streams for Apache Kafka
+    isBeta: true
+    paths:
+      - /application-services/streams
+
 application-services:
   title: Application Services
   api:
-    isBeta: true
+    subItems:
+      kafkamgmt:
+        title: "OpenShift Streams for Apache Kafka Management API"
+        github:
+          owner: redhat-developer
+          repo: app-services-sdk-core
+          path: kas-fleet-manager.yaml?ref=doc-portal
+      connectormgmt:
+        title: "OpenShift Connectors Management API "
+        github:
+          owner: redhat-developer
+          repo: app-services-sdk-core
+          path: connector_mgmt.yaml?ref=doc-portal
+      serviceregistrymgmt:
+        title: "OpenShift Service Registry Management API"
+        github:
+          owner: redhat-developer
+          repo: app-services-sdk-core
+          path: srs-fleet-manager.json?ref=doc-portal
+      smarteventsmgmt:
+        title: "Smart Events Management API"
+        github:
+          owner: redhat-developer
+          repo: app-services-sdk-core
+          path: smartevents-mgmt.yaml?ref=doc-portal
+      serviceaccountsmgmt:
+        title: "Service Accounts Management API"
+        github:
+          owner: redhat-developer
+          repo: app-services-sdk-core
+          path: service-accounts.yaml?ref=doc-portal
+      kafkainstance:
+        title: "OpenShift Streams for Apache Kafka Instance API"
+        readonly: true
+        github:
+          owner: redhat-developer
+          repo: app-services-sdk-core
+          path: kafka-admin-rest.yaml?ref=doc-portal
+      registryinstance:
+        title: "OpenShift Service Registry Instance API"
+        readonly: true
+        github:
+          owner: redhat-developer
+          repo: app-services-sdk-core
+          path: registry-instance.json?ref=doc-portal
   deployment_repo: https://github.com/RedHatInsights/rhosak-dashboard-build
   frontend:
     title: Application Services
@@ -722,20 +870,33 @@ application-services:
         title: "Overview"
         default: true
         group: overview
-      - id: streams
+      - id: learning-resources
+        title: "Learning Resources"
         group: overview
       - id: api-management
         title: "API Management"
         group: overview
-      - id: data-science
-        title: "Data Science"
+      - id: overview
+        title: "Overview"
         group: overview
-      - id: cos
-        title: "Connectors"
+      - id: streams
+        title: "Kafka Instances"
         group: overview
-      - id: sr
+      - id: service-registry
         title: "Service Registry"
         group: overview
+      - id: smart-events
+        title: "Smart Events"
+        group: overview
+      - id: streams
+        group: overview
+      - id: learning-resources
+        title: "Learning Resources"
+        group: overview
+      - id: streams
+        title: "Streams for Apache Kafka"
+        group: overview
+
   top_level: true
   source_repo: https://github.com/bf2fc6cc711aee1a0c2a/mk-ui-host
 
@@ -754,6 +915,10 @@ cos-ui-build:
   title: UI for COS
   deployment_repo: https://github.com/RedHatInsights/cos-ui-build
 
+dbz-ui-build:
+  title: UI for Debezium
+  deployment_repo: https://github.com/RedHatInsights/dbz-ui-build
+
 sr-ui-build:
   title: UI for Service Registry
   deployment_repo: https://github.com/RedHatInsights/sr-ui-build
@@ -761,6 +926,18 @@ sr-ui-build:
 srs-ui-build:
   title: UI for Service Registry Control Plane
   deployment_repo: https://github.com/RedHatInsights/srs-ui-build
+
+ads-ui-build:
+  title: UI for API Designer
+  deployment_repo: https://github.com/RedHatInsights/ads-ui-build
+
+ads-editors-build:
+  title: UI for API Designer (Editor Components)
+  deployment_repo: https://github.com/RedHatInsights/ads-editors-build
+
+se-ui-build:
+  title: UI for Smart Events
+  deployment_repo: https://github.com/RedHatInsights/se-ui-build
 
 rhoas-guides-build:
   title: Guides for RHOAS
@@ -770,6 +947,8 @@ patch:
   title: Patch
   api:
     versions:
+      - v3
+      - v2
       - v1
     isBeta: true
   channel: '#team-patchman'
@@ -854,6 +1033,7 @@ connector:
   api:
     versions:
       - v1
+      - v2
     apiName: config-manager
   deployment_repo: https://github.com/RedHatInsights/sed-frontend-build
   frontend:
@@ -890,7 +1070,7 @@ ros:
   title: Resource Optimization
   api:
     versions:
-      - v0
+      - v1
   channel: '#team-ros'
   deployment_repo: https://github.com/RedHatInsights/ros-frontend-build
   frontend:
@@ -917,6 +1097,11 @@ ruledev:
       - /staging/ruledev
   source_repo: https://github.com/RedHatInsights/ruledev-frontend
 
+sandbox:
+  title: Developer Sandbox
+  deployment_repo: https://github.com/RedHatInsights/developer-sandbox-build
+  source_repo: https://github.com/RedHatInsights/developer-sandbox-ui
+
 settings:
   title: Settings
   top_level: true
@@ -932,14 +1117,13 @@ settings:
       - id: applications
       - id: settings-documentation
         title: Documentation
-        navigate: https://access.redhat.com/documentation/red_hat_cloud_platform/
+        navigate: https://access.redhat.com/documentation/en-us/red_hat_hybrid_cloud_console
 
 sources:
-  title: Discovered Inventory
+  title: Sources
   api:
     versions:
-      - v1
-    isBeta: true
+      - v3.1
   channel: '#sources'
   deployment_repo: https://github.com/RedHatInsights/sources-ui-deploy
   frontend:
@@ -1020,6 +1204,19 @@ subscriptions:
 
   source_repo: https://github.com/RedHatInsights/curiosity-frontend
 
+tasks:
+  title: Tasks
+  api:
+    versions:
+      - v1
+  channel: '#tasks'
+  deployment_repo: https://github.com/RedHatInsights/tasks-frontend-build
+  frontend:
+    module: tasks#./RootApp
+    paths:
+      - /insights/tasks
+  source_repo: https://github.com/RedHatInsights/tasks-frontend
+
 topological-inventory:
   title: Topological inventory
   top_level: true
@@ -1096,3 +1293,40 @@ vulnerability:
       - id: systems
         title: Systems
   source_repo: https://github.com/RedHatInsights/vulnerability-ui
+
+app-studio-docs:
+  title: App Studio Docs
+  api:
+    versions:
+      - v1
+  channel: '#platform-experience'
+  deployment_repo: https://github.com/RedHatInsights/app-studio-docs-build
+  frontend:
+    title: App Studio Docs
+    paths:
+      - /hac/app-studio-docs
+  source_repo: https://github.com/RedHatInsights/app-studio-docs
+iam:
+  title: Identity & Access management
+  deployment_repo: https://github.com/RedHatInsights/iam-ui-build
+  frontend:
+    paths:
+        - /iam/authentication-policy
+        - /iam/user-access
+    sub_apps:
+      - id: user-access
+      - id: authentication-policy
+
+business-services:
+  title: Business Services
+  deployment_repo: https://github.com/RedHatInsights/hybrid-committed-spend-ui-build
+  frontend:
+    title: Hybrid Committed Spend
+    paths:
+      - /business-services/hybrid-committed-spend
+    sub_apps:
+      - id: overview
+        title: Overview
+        default: true
+      - id: details
+        title: Details
