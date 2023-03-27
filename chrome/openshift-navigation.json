@@ -23,6 +23,12 @@
             "product": "Red Hat OpenShift Cluster Manager"
         },
         {
+            "appId": "sandbox",
+            "href": "/openshift/sandbox",
+            "title": "Developer Sandbox",
+            "filterable": false
+        },
+        {
             "appId": "openshift",
             "href": "/openshift/downloads",
             "title": "Downloads",
@@ -31,7 +37,7 @@
         },
         {
             "groupId": "insights",
-            "title": "Insights",
+            "title": "Red Hat Insights",
             "navItems": [
                 {
                     "title": "Advisor",
@@ -39,14 +45,32 @@
                     "routes": [
                         {
                             "appId": "ocpAdvisor",
-                            "title": "Clusters",
-                            "href": "/openshift/insights/advisor/clusters",
+                            "title": "Recommendations",
+                            "href": "/openshift/insights/advisor/recommendations",
                             "product": "Red Hat OpenShift Cluster Manager"
                         },
                         {
                             "appId": "ocpAdvisor",
-                            "title": "Recommendations",
-                            "href": "/openshift/insights/advisor/recommendations",
+                            "title": "Clusters",
+                            "href": "/openshift/insights/advisor/clusters",
+                            "product": "Red Hat OpenShift Cluster Manager"
+                        }
+                    ]
+                },
+                {
+                    "title": "Vulnerability",
+                    "expandable": true,
+                    "routes": [
+                        {
+                            "appId": "ocpVulnerability",
+                            "title": "CVEs",
+                            "href": "/openshift/insights/vulnerability/cves",
+                            "product": "Red Hat OpenShift Cluster Manager"
+                        },
+                        {
+                            "appId": "ocpVulnerability",
+                            "title": "Clusters",
+                            "href": "/openshift/insights/vulnerability/clusters",
                             "product": "Red Hat OpenShift Cluster Manager"
                         }
                     ]
@@ -83,61 +107,73 @@
                             "product": "Subscription Watch"
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "title": "Cost Management",
-            "expandable": true,
-            "routes": [
-                {
-                    "appId": "costManagement",
-                    "title": "Overview",
-                    "filterable": false,
-                    "href": "/openshift/cost-management",
-                    "product": "Red Hat Cost Management"
                 },
                 {
-                    "appId": "costManagement",
-                    "title": "OpenShift",
-                    "href": "/openshift/cost-management/ocp",
-                    "product": "Red Hat Cost Management"
-                },
-                {
-                    "appId": "costManagement",
-                    "title": "Amazon Web Services",
-                    "href": "/openshift/cost-management/aws",
-                    "product": "Red Hat Cost Management"
-                },
-                {
-                    "appId": "costManagement",
-                    "title": "Microsoft Azure",
-                    "href": "/openshift/cost-management/azure",
-                    "product": "Red Hat Cost Management"
-                },
-                {
-                    "appId": "costManagement",
-                    "title": "Google Cloud Platform",
-                    "href": "/openshift/cost-management/gcp",
-                    "product": "Red Hat Cost Management"
-                },
-                {
-                    "appId": "costManagement",
-                    "title": "IBM Cloud",
-                    "href": "/openshift/cost-management/ibm",
-                    "product": "Red Hat Cost Management"
-                },
-                {
-                    "appId": "costManagement",
-                    "title": "Cost Models",
-                    "href": "/openshift/cost-management/cost-models",
-                    "product": "Red Hat Cost Management"
-                },
-                {
-                    "appId": "costManagement",
-                    "title": "Cost Explorer",
-                    "href": "/openshift/cost-management/explorer",
-                    "product": "Red Hat Cost Management"
+                    "title": "Cost Management",
+                    "expandable": true,
+                    "routes": [
+                        {
+                            "appId": "costManagement",
+                            "title": "Overview",
+                            "filterable": false,
+                            "href": "/openshift/cost-management",
+                            "product": "Red Hat Cost Management"
+                        },
+                        {
+                            "appId": "costManagement",
+                            "title": "Recommendations",
+                            "href": "/openshift/cost-management/recommendations",
+                            "product": "Red Hat Cost Management"
+                        },
+                        {
+                            "appId": "costManagement",
+                            "title": "OpenShift",
+                            "href": "/openshift/cost-management/ocp",
+                            "product": "Red Hat Cost Management"
+                        },
+                        {
+                            "appId": "costManagement",
+                            "title": "Amazon Web Services",
+                            "href": "/openshift/cost-management/aws",
+                            "product": "Red Hat Cost Management"
+                        },
+                        {
+                            "appId": "costManagement",
+                            "title": "Google Cloud Platform",
+                            "href": "/openshift/cost-management/gcp",
+                            "product": "Red Hat Cost Management"
+                        },
+                        {
+                            "appId": "costManagement",
+                            "title": "IBM Cloud",
+                            "href": "/openshift/cost-management/ibm",
+                            "product": "Red Hat Cost Management"
+                        },
+                        {
+                            "appId": "costManagement",
+                            "title": "Microsoft Azure",
+                            "href": "/openshift/cost-management/azure",
+                            "product": "Red Hat Cost Management"
+                        },
+                        {
+                            "appId": "costManagement",
+                            "title": "Oracle Cloud Infrastructure",
+                            "href": "/openshift/cost-management/oci",
+                            "product": "Red Hat Cost Management"
+                        },
+                        {
+                            "appId": "costManagement",
+                            "title": "Cost Models",
+                            "href": "/openshift/cost-management/cost-models",
+                            "product": "Red Hat Cost Management"
+                        },
+                        {
+                            "appId": "costManagement",
+                            "title": "Cost Explorer",
+                            "href": "/openshift/cost-management/explorer",
+                            "product": "Red Hat Cost Management"
+                        }
+                    ]
                 }
             ]
         },

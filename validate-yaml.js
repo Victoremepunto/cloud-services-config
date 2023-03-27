@@ -57,12 +57,18 @@ const schema = Joi.object({
     mailing_list: Joi.string(),
     title: Joi.string(),
     api: Joi.object({
+        url: Joi.string(),
+        readonly: Joi.boolean(),
+        github: Joi.object({ owner: Joi.string(), repo: Joi.string(), path: Joi.string() }),
         apiName: Joi.string(),
         versions: [Joi.array().items(Joi.string()), Joi.string()],
         isBeta: Joi.boolean(),
         alias: Joi.array().items(Joi.string()),
         subItems: Joi.object().pattern(/^/ ,Joi.object({
             versions: [Joi.array().items(Joi.string()), Joi.string()],
+            url: Joi.string(),
+            readonly: Joi.boolean(),
+            github: Joi.object({ owner: Joi.string(), repo: Joi.string(), path: Joi.string() }),
             title: Joi.string()
         })),
         tags: Joi.array().items(Joi.object({
